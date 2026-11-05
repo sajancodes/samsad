@@ -1,0 +1,6 @@
+{
+  "name": "SANSAD SHOWDOWN — The Great Kursi Fight",
+  "description": "Pick your neta and fight for the kursi. A free-to-play 3D browser fighting game — political satire & parody.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

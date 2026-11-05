@@ -1,0 +1,6 @@
+{
+  "summary": "Implementation plan for an exact, pixel-for-pixel, word-for-word, and asset-for-asset mirror replica of Sansad Showdown: The Great Kursi Fight (fightkaro.com), including all 9 3D rigged GLB character models, WebP portraits, voiceovers, music/SFX, Draco decoder assets, and a complete Express WebRTC room signaling backend (/api/room and /api/ice).",
+  "updatedAt": "2026-11-05T11:11:09.826617907Z",
+  "requestFeedback": true,
+  "userFacing": true
+}
