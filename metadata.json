@@ -1,6 +1,6 @@
 {
-  "name": "SANSAD SHOWDOWN — The Great Kursi Fight",
-  "description": "Pick your neta and fight for the kursi. A free-to-play 3D browser fighting game — political satire & parody.",
+  "name": "SAMSAD — The Great Kursi & GenZ Fight (Nepal)",
+  "description": "Pick your Nepali Neta or GenZ Leader and fight for the Kursi at Maitighar Mandala & Singha Durbar. A 3D browser political satire & parody game.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

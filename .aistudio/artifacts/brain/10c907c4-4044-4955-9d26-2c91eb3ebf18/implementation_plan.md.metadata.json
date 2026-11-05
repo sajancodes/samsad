@@ -1,6 +1,6 @@
 {
-  "summary": "Implementation plan for an exact, pixel-for-pixel, word-for-word, and asset-for-asset mirror replica of Sansad Showdown: The Great Kursi Fight (fightkaro.com), including all 9 3D rigged GLB character models, WebP portraits, voiceovers, music/SFX, Draco decoder assets, and a complete Express WebRTC room signaling backend (/api/room and /api/ice).",
-  "updatedAt": "2026-11-05T11:11:09.826617907Z",
+  "summary": "Implementation plan to replace the old Indian 3D character appearances (Yogi, Trump, Modi, Rahul, Didi) with authentic 3D Nepali character models for KP Baa, Balen, Harka, Prasai Dai, Gagan, Deuba Daju, Rabi Dai, Prachanda, and Gen-Z Boss, plus cache-busting so the browser immediately loads the updated 3D models and UI.",
+  "updatedAt": "2026-11-05T13:15:32.487260615Z",
   "requestFeedback": true,
   "userFacing": true
 }

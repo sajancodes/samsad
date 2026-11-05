@@ -270,12 +270,21 @@ app.all('/api/room', async (req: Request, res: Response) => {
   res.status(405).json({ error: 'Method not allowed' });
 });
 
-// Serve all locally mirrored static files from /public
+// Serve all locally mirrored static files from /public with zero caching
 const publicDir = path.join(__dirname, 'public');
+app.use((_req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
 app.use(
   express.static(publicDir, {
-    maxAge: '1h',
+    etag: false,
+    lastModified: false,
+    maxAge: 0,
     setHeaders: (res, filePath) => {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
       if (filePath.endsWith('.wasm')) {
         res.setHeader('Content-Type', 'application/wasm');
       } else if (filePath.endsWith('.glb')) {
@@ -293,6 +302,7 @@ app.get('*', async (req: Request, res: Response) => {
   const localFile = path.join(publicDir, reqPath);
 
   if (fs.existsSync(localFile) && fs.statSync(localFile).isFile()) {
+    res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
     res.sendFile(localFile);
     return;
   }

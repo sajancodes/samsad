@@ -2,47 +2,42 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <script>
-      // Runs before anything draws. Browsers keep separate storage for www and the bare domain, so
-      // www visitors move across with their saves (src/progress.ts takes them in), and a returning
-      // player's opening notice stays hidden (src/legal.ts).
-      (function () {
-        var saves = {};
-        try {
-          for (var i = 0; i < localStorage.length; i++) {
-            var key = localStorage.key(i);
-            if (key.indexOf('sansad-showdown:') === 0) saves[key] = localStorage.getItem(key);
-          }
-        } catch (e) {}
-        if (location.hostname === 'www.fightkaro.com') {
-          location.replace(location.protocol + '//' + location.host.slice(4) + location.pathname + location.search + '#carry=' + encodeURIComponent(JSON.stringify(saves)));
-        } else if (saves['sansad-showdown:legal-v1'] === '1') {
-          document.documentElement.className += ' legal-accepted';
-        }
-      })();
-    </script>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <meta name="theme-color" content="#120a06" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+    <title>SAMSAD — The Great Kursi &amp; GenZ Fight (Nepal)</title>
+    <meta name="description" content="Pick your Nepali Neta or GenZ Leader and fight for the Kursi at Maitighar Mandala &amp; Singha Durbar. A free-to-play 3D browser political satire &amp; parody game." />
+    <meta name="theme-color" content="#090d18" />
+
+    <!-- Open Graph / WhatsApp / Twitter preview -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="SAMSAD Nepal" />
+    <meta property="og:title" content="SAMSAD — The Great Kursi &amp; GenZ Fight (Nepal)" />
+    <meta property="og:description" content="Pick your Nepali Neta or GenZ Leader and fight for the Kursi at Maitighar Mandala &amp; Singha Durbar." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="SAMSAD — The Great Kursi &amp; GenZ Fight (Nepal)" />
+    <meta name="twitter:description" content="Pick your Nepali Neta or GenZ Leader and fight for the Kursi!" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="apple-mobile-web-app-title" content="Sansad Showdown" />
-    <title>Sansad Showdown — Political Satire Fighter</title>
+
+    <!-- Mobile web-app mode -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="SAMSAD" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Teko:wght@500;700&display=swap" rel="stylesheet" />
-    <script type="module" crossorigin src="/assets/main-CfQ2THv5.js"></script>
+    <script type="module" crossorigin src="/assets/main-samsad3d.js?v=20261105_samsad3d"></script>
     <link rel="modulepreload" crossorigin href="/assets/rooms-CRfnBsqC.js">
     <link rel="modulepreload" crossorigin href="/assets/three-CJyKo-TQ.js">
-    <link rel="stylesheet" crossorigin href="/assets/main-C4DN45Lw.css">
+    <link rel="stylesheet" crossorigin href="/assets/main-samsad3d.css?v=20261105_samsad3d">
   </head>
   <body>
     <canvas id="game"></canvas>
-
     <div id="vignette"></div>
     <div id="flash"></div>
     <div id="popups"></div>
@@ -68,13 +63,17 @@
           </div>
         </div>
       </div>
+
       <div class="combo left"></div>
       <div class="combo right"></div>
+
       <div class="bottom">
         <div class="meter left"><div class="meter-label">SHAKTI</div><div class="meter-bar"><div class="meter-fill"></div></div></div>
         <div class="meter right"><div class="meter-label">SHAKTI</div><div class="meter-bar"><div class="meter-fill"></div></div></div>
       </div>
+
       <button id="pause-btn" title="Pause (Esc)">II</button>
+
       <div id="newsdesk">
         <div class="desk">
           <div class="live">● LIVE</div>
@@ -85,10 +84,9 @@
         <div class="ticker"><span class="tag">BREAKING</span><div class="ticker-window"><div class="ticker-track"></div></div></div>
       </div>
     </div>
+
     <div id="announce"></div>
-
-    <button id="budget-meter" type="button" aria-label="Use the budget"><span class="hint" aria-hidden="true"><span class="hint-key">PRESS <kbd>B</kbd></span><span class="hint-touch">TAP 📕</span> FOR NIRMALA'S BUDGET!</span><b>📕</b><span class="label">BUDGET</span><div class="track"><i></i></div><span class="key">B</span></button>
-
+    <button id="budget-meter" type="button" aria-label="Call Kulman + VPN + Remittance Assist"><span class="hint" aria-hidden="true"><span class="hint-key">PRESS <kbd>B</kbd></span><span class="hint-touch">TAP ⚡</span> FOR KULMAN + VPN + NEPO-TAX!</span><b>⚡</b><span class="label">KULMAN+VPN</span><div class="track"><i></i></div><span class="key">B</span></button>
     <div id="cinema">
       <video id="portal-video" muted playsinline preload="none" disablepictureinpicture></video>
       <div id="cine-fade"></div>
@@ -108,15 +106,15 @@
         <button data-touch="super" class="super">SUPER</button>
         <button data-touch="punch" class="punch">PUNCH</button>
         <button data-touch="kick" class="kick">KICK</button>
-        <!-- Only in a match against the CPU's Mbapu: sits right above SUPER, calls in the budget once its meter is full. -->
-        <button id="touch-budget" class="touch-budget" type="button" hidden aria-label="Use the budget">📕<small>BUDGET</small></button>
+        <!-- Only in a match against the CPU's Boss: sits right above SUPER, calls in the Kulman + VPN + Remittance Assist once its meter is full. -->
+        <button id="touch-budget" class="touch-budget" type="button" hidden aria-label="Call Kulman + VPN + Remittance Assist">⚡<small>VPN+TAX</small></button>
       </div>
     </div>
 
     <div id="rotate" aria-live="polite">
       <div class="phone-icon"></div>
       <h2>ROTATE YOUR PHONE</h2>
-      <p>Sansad Showdown is played in landscape.</p>
+      <p>SAMSAD is played in landscape.</p>
     </div>
 
     <!-- iPhone (Safari / Chrome): toolbars only collapse when the page scrolls. -->
@@ -127,23 +125,23 @@
       <button type="button" class="swipe-skip">Play with toolbar</button>
     </div>
 
-    <div id="loading" class="screen"><div class="logo">SANSAD <span>SHOWDOWN</span></div><p>Loading neta assets…</p><div class="load-bar"><i id="load-fill"></i></div></div>
+    <div id="loading" class="screen"><div class="logo">SAM<span>SAD</span></div><p>Loading Nepali netas &amp; Maitighar assets…</p><div class="load-bar"><i id="load-fill"></i></div></div>
 
     <div id="title" class="screen hidden">
-      <div class="logo">SANSAD <span>SHOWDOWN</span></div>
-      <div class="tag">THE GREAT KURSI FIGHT</div>
-      <div id="portal-banner"><i class="gem"></i><span>Beat Mbapu to open the portal 🔒</span></div>
+      <div class="logo">SAM<span>SAD</span></div>
+      <div class="tag">THE GREAT KURSI &amp; GEN-Z FIGHT · NEPAL</div>
+      <div id="portal-banner"><i class="gem"></i><span>Beat GenZ Boss at Maitighar to open the Portal 🔒</span></div>
       <div class="press">PRESS ENTER / CLICK TO START</div>
       <div class="press-touch">TAP TO START</div>
-      <div class="disclaimer">Political satire and parody. Not connected to or endorsed by any person or party.</div>
+      <div class="disclaimer">Nepali political satire &amp; GenZ parody. Not connected to or endorsed by any person, party, or institution.</div>
     </div>
 
     <!-- Online: host or join a room -->
     <div id="online" class="screen hidden">
-      <h1>PLAY WITH A FRIEND</h1>
+      <h1>PLAY WITH A SATHI</h1>
       <div id="on-home" class="on-panel">
         <button id="on-host" class="big" type="button">HOST A ROOM</button>
-        <div class="on-or">or enter your friend's room code</div>
+        <div class="on-or">or enter your sathi's room code</div>
         <form id="on-join-form" class="on-join">
           <input id="on-code" maxlength="6" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="CODE" aria-label="Room code" />
           <button class="big" type="submit">JOIN</button>
@@ -156,7 +154,7 @@
           <button id="on-wa" type="button">Share on WhatsApp</button>
           <button id="on-copy" type="button">Copy link</button>
         </div>
-        <div class="on-wait"><span class="dot"></span> Waiting for your friend to join…</div>
+        <div class="on-wait"><span class="dot"></span> Waiting for your sathi to join…</div>
       </div>
       <div id="on-connecting" class="on-panel hidden">
         <div class="on-wait"><span class="dot"></span> <span id="on-connecting-text">Connecting…</span></div>
@@ -171,22 +169,15 @@
     <!-- Character select (fighting-game style): fighters left/right, name plates in the
          corners, portrait grid with 1P / CPU cursors in the middle. -->
     <div id="select" class="screen hidden">
-      <h1>SELECT YOUR NETA</h1>
-      <a id="ig-link" href="https://www.instagram.com/shivmbuilds/" target="_blank" rel="noopener noreferrer" aria-label="Follow @shivmbuilds on Instagram">
+      <h1>SELECT YOUR NETA / GEN-Z</h1>
+      <a id="ig-link" href="#maitighar" aria-label="Nepal GenZ Movement">
         <svg viewBox="0 0 24 24" aria-hidden="true">
-          <defs>
-            <linearGradient id="ig-grad" x1="0" y1="1" x2="1" y2="0">
-              <stop offset="0" stop-color="#feda75" /><stop offset="0.35" stop-color="#fa7e1e" /><stop offset="0.6" stop-color="#d62976" /><stop offset="1" stop-color="#4f5bd5" />
-            </linearGradient>
-          </defs>
-          <rect x="2" y="2" width="20" height="20" rx="6" fill="url(#ig-grad)" />
-          <rect x="6.2" y="6.2" width="11.6" height="11.6" rx="3.6" fill="none" stroke="#fff" stroke-width="1.8" />
-          <circle cx="12" cy="12" r="2.9" fill="none" stroke="#fff" stroke-width="1.8" />
-          <circle cx="16.3" cy="7.7" r="1.05" fill="#fff" />
+          <rect x="2" y="2" width="20" height="20" rx="6" fill="#dc143c" stroke="#003893" stroke-width="2" />
+          <polygon points="7,5 18,11 11,11 18,19 7,19" fill="#ffffff" />
         </svg>
-        <span>@shivmbuilds</span>
+        <span>🇳🇵 #NepoKids · SAMSAD</span>
       </a>
-      <button id="support-btn" type="button" aria-label="Support the game with UPI"><span class="cup">☕</span><span>Chai pilao · Support</span></button>
+      <button id="support-btn" type="button" aria-label="Support the game with Chiya &amp; Momo"><span class="cup">🥟</span><span>Chiya-Momo · Support</span></button>
       <div class="sel-vs">VS</div>
 
       <button id="plate-p1" class="plate p1" type="button" aria-label="Choose your neta">
@@ -215,48 +206,48 @@
         </div>
         <div id="bapu-quest" class="hidden"></div>
         <div class="grid">
-          <button class="tile" type="button" data-tile="modi" style="--accent: #ff9933">
-            <img data-portrait="modi" src="/faces/modi.webp?v=20261101_smooth" alt="MitraMan" />
-            <span class="tile-name">MITRAMAN</span>
+          <button class="tile" type="button" data-tile="modi" style="--accent: #dc143c">
+            <img data-portrait="modi" src="/faces/modi.webp?v=20261105_samsad3d" alt="KP Baa" />
+            <span class="tile-name">KP BAA</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
-          <button class="tile" type="button" data-tile="rahul" style="--accent: #2e9bff">
-            <img data-portrait="rahul" src="/faces/rahul.webp?v=20261101_smooth" alt="Yatra Boy" />
-            <span class="tile-name">YATRA BOY</span>
+          <button class="tile" type="button" data-tile="rahul" style="--accent: #1d4ed8">
+            <img data-portrait="rahul" src="/faces/rahul.webp?v=20261105_samsad3d" alt="Gagan" />
+            <span class="tile-name">GAGAN</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
-          <button class="tile" type="button" data-tile="didi" style="--accent: #22b35e">
-            <img data-portrait="didi" src="/faces/didi.webp?v=20261101_smooth" alt="Deedee" />
-            <span class="tile-name">DEEDEE</span>
+          <button class="tile" type="button" data-tile="didi" style="--accent: #16a34a">
+            <img data-portrait="didi" src="/faces/didi.webp?v=20261105_samsad3d" alt="Harka" />
+            <span class="tile-name">HARKA</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
-          <button class="tile" type="button" data-tile="trump" style="--accent: #e0262f">
-            <img data-portrait="trump" src="/faces/trump.webp?v=20261101_smooth" alt="Tariff Taau" />
-            <span class="tile-name">TARIFF TAAU</span>
+          <button class="tile" type="button" data-tile="trump" style="--accent: #e11d48">
+            <img data-portrait="trump" src="/faces/trump.webp?v=20261105_samsad3d" alt="Durga Prasai" />
+            <span class="tile-name">PRASAI DAI</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
-          <button class="tile" type="button" data-tile="yogi" style="--accent: #f05a00">
-            <img data-portrait="yogi" src="/faces/yogi.webp?v=20261101_smooth" alt="Dozer Dada" />
-            <span class="tile-name">DOZER DADA</span>
+          <button class="tile" type="button" data-tile="yogi" style="--accent: #f97316">
+            <img data-portrait="yogi" src="/faces/yogi.webp?v=20261105_samsad3d" alt="Balen" />
+            <span class="tile-name">BALEN</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
-          <button class="tile" type="button" data-tile="nitin" style="--accent: #ff9a1f">
-            <img data-portrait="nitin" src="/faces/nitin.webp?v=20261101_smooth" alt="Toll Man" />
-            <span class="tile-name">TOLL MAN</span>
+          <button class="tile" type="button" data-tile="nitin" style="--accent: #eab308">
+            <img data-portrait="nitin" src="/faces/nitin.webp?v=20261105_samsad3d" alt="Deuba Daju" />
+            <span class="tile-name">DEUBA DAJU</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
-          <button class="tile" type="button" data-tile="ravi" style="--accent: #8b5cf6">
-            <img data-portrait="ravi" src="/faces/ravi.webp?v=20261104_face" alt="Sutti Babu" />
-            <span class="tile-name">SUTTI BABU</span>
+          <button class="tile" type="button" data-tile="ravi" style="--accent: #06b6d4">
+            <img data-portrait="ravi" src="/faces/ravi.webp?v=20261105_samsad3d" alt="Rabi Dai" />
+            <span class="tile-name">RABI DAI</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
-          <button class="tile" type="button" data-tile="lalu" style="--accent: #16a34a">
-            <img data-portrait="lalu" src="/faces/lalu.webp?v=20261104_face" alt="Rail Raja" />
-            <span class="tile-name">RAIL RAJA</span>
+          <button class="tile" type="button" data-tile="lalu" style="--accent: #b91c1c">
+            <img data-portrait="lalu" src="/faces/lalu.webp?v=20261105_samsad3d" alt="Prachanda" />
+            <span class="tile-name">PRACHANDA</span>
             <i class="cur p1">1P</i><i class="cur p2">CPU</i>
           </button>
           <button class="tile boss" type="button" data-tile="mbapu" style="--accent: #ffd700">
-            <span class="boss-tag">BOSS</span>
+            <span class="boss-tag">GEN-Z BOSS</span>
             <span class="lock-mark" aria-hidden="true">
               <svg viewBox="0 0 64 80">
                 <path class="sil" d="M32 12c-10 0-17 8-17 19 0 8 4 15 9 18v5C14 57 5 63 3 80h58c-2-17-11-23-21-26v-5c5-3 9-10 9-18 0-11-7-19-17-19z" />
@@ -264,8 +255,8 @@
               </svg>
               <b>?</b>
             </span>
-            <img data-portrait="mbapu" src="/faces/mbapu.webp?v=20261101_smooth" alt="Mbapu" />
-            <span class="tile-name">MBAPU</span>
+            <img data-portrait="mbapu" src="/faces/mbapu.webp?v=20261105_samsad3d" alt="GenZ Boss" />
+            <span class="tile-name">GEN-Z BOSS</span>
             <i class="cur p2">BOSS</i>
           </button>
           <button class="tile random" type="button" data-tile="random" style="--accent: #ffe3a0">
@@ -273,12 +264,13 @@
             <span class="tile-name">RANDOM</span>
           </button>
         </div>
+
         <div class="options">
           <div class="difficulty stage-pick">
-            <span>STAGE</span>
-            <button data-stage="sansad">SANSAD</button>
-            <button data-stage="jantar">JANTAR MANTAR</button>
-            <button data-stage="road">DESI SADAK</button>
+            <span>ARENA</span>
+            <button data-stage="sansad">SINGHA DURBAR</button>
+            <button data-stage="jantar">MAITIGHAR MANDALA</button>
+            <button data-stage="road">KALANKI RING ROAD</button>
           </div>
           <div class="difficulty cpu-level">
             <span>CPU</span>
@@ -288,8 +280,8 @@
           </div>
         </div>
         <div class="sel-actions">
-          <button id="online-btn" class="online-btn" type="button">🌐 PLAY WITH A FRIEND</button>
-          <button id="fight-btn" class="big">FIGHT!</button>
+          <button id="online-btn" class="online-btn" type="button">🌐 PLAY WITH A SATHI <span class="online-soon-badge">SOON</span></button>
+          <button id="fight-btn" class="big">BHIDAM!</button>
         </div>
         <div id="online-bar" class="online-bar">
           <span id="online-status"></span>
@@ -300,8 +292,8 @@
       </div>
 
       <div class="controls">
-        <b>Pick</b> tap a face (1P, then CPU) · ←/→ you · ↑/↓ CPU &nbsp; <b>Stage</b> T &nbsp; <b>CPU</b> 1/2/3 &nbsp; <b>Fight</b> Enter<br />
-        <b>Move</b> A/D or ←/→ · <b>Jump</b> W or ↑ · <b>Crouch</b> S or ↓ · <b>Block</b> hold back · <b>Punch</b> J · <b>Kick</b> K · <b>Grab</b> I or J+K · <b>Super</b> L / Space · <b>Pause</b> Esc · <b>Music</b> M · <b>Mute</b> N<br />
+        <b>Pick</b> tap a face (1P, then CPU) · ←/→ you · ↑/↓ CPU &nbsp; <b>Arena</b> T &nbsp; <b>CPU</b> 1/2/3 &nbsp; <b>Fight</b> Enter<br />
+        <b>Move</b> A/D or ←/→ · <b>Jump</b> W or ↑ · <b>Crouch</b> S or ↓ · <b>Block</b> hold back · <b>Punch</b> J · <b>Kick</b> K · <b>Grab</b> I or J+K · <b>Super</b> L / Space · <b>Assist</b> B · <b>Pause</b> Esc<br />
         <b>Specials</b> →J, →K, ↓K sweep · <b>Combos</b> J,J,J · J,J,K · J,K,K · K,K · ↓J,J · ↓J,K
       </div>
       <div class="touch-help">
@@ -312,14 +304,14 @@
 
     <!-- Online: friend away / link unstable -->
     <div id="net-away" class="hidden">
-      <div class="net-away-msg"><div class="dot"></div><span>Waiting for your friend…</span></div>
+      <div class="net-away-msg"><div class="dot"></div><span>Waiting for your sathi…</span></div>
       <button id="net-away-leave" type="button">LEAVE ROOM</button>
     </div>
     <div id="net-badge" class="hidden"></div>
 
     <div id="pause" class="screen hidden">
-      <h1>CHAI BREAK ☕</h1>
-      <p class="pause-sub">Sansad adjourned till further notice.</p>
+      <h1>CHIYA &amp; MOMO BREAK 🥟☕</h1>
+      <p class="pause-sub">Samsad Bhawan adjourned till the next Gathabandhan meeting.</p>
       <button id="resume-btn" class="big">RESUME</button>
       <button id="pause-sound-btn">SOUND: ON</button>
       <button id="quit-btn">QUIT TO SELECT</button>
@@ -327,7 +319,7 @@
 
     <div id="result" class="screen hidden">
       <div class="paper">
-        <div id="paper-masthead" class="masthead">THE DAILY JUMLA</div>
+        <div id="paper-masthead" class="masthead">THE KATHMANDU GUFF</div>
         <div id="paper-date" class="dateline"></div>
         <div id="paper-headline" class="headline"></div>
         <div class="paper-body">
@@ -335,7 +327,7 @@
           <div class="cols">
             <p id="paper-sub" class="paper-sub"></p>
             <p id="paper-excuse" class="excuse"></p>
-            <p class="filler">Sources say the chai bhaiya in the stands has demanded compensation for broken cups. A stray cow that halted the fight was later seen eating a placard. Exit polls, as usual, were wrong.</p>
+            <p class="filler">Sources at Maitighar Mandala report that the Chiya-Momo Dai has demanded compensation for spilled jhol momo. Meanwhile, GenZ protesters on 1.1.1.1 VPN have already turned the knockout into a viral TikTok edit.</p>
           </div>
         </div>
         <div id="result-title" class="stamp">YOU WIN!</div>
@@ -348,37 +340,48 @@
       </div>
     </div>
 
+    <button id="gfx-btn" type="button" aria-label="Toggle Graphics Quality" title="Switch Low / Med / High Graphics for Low-End PCs">⚡ GFX: MED</button>
     <button id="sound-btn" aria-label="Mute sound">🔊</button>
 
-    <!-- Opening notice: shown once per device, above everything else (see src/legal.ts). -->
-    <div id="legal" role="alertdialog" aria-modal="true" aria-labelledby="legal-title">
-      <div class="legal-card">
-        <h2 id="legal-title">SATIRE NOTICE · व्यंग्य सूचना</h2>
-        <div class="legal-scroll" tabindex="0">
-          <p class="legal-hi">यह एक व्यंग्यात्मक खेल है। इसमें दिखाए गए पात्र, संवाद और घटनाएं मनोरंजन, हास्य और सामाजिक टिप्पणी के उद्देश्य से काल्पनिक एवं अतिरंजित रूप में प्रस्तुत किए गए हैं। इन्हें वास्तविक घटनाओं या तथ्यों के रूप में न लें।</p>
-          <p>SANSAD SHOWDOWN / FIGHTKARO is a political satire and parody game created for entertainment, humour and social commentary. It is intended as an expression of creative freedom under Article 19(1)(a) of the Constitution of India, subject to applicable laws.</p>
-          <ul>
-            <li>All fictional dialogues, scenarios and headlines are satirical interpretations. They are not intended to represent factual statements or allegations.</li>
-            <li>This game is independently created and is not affiliated with, endorsed, sponsored by or connected to any political leader, political party, government body or news organisation.</li>
-            <li>The game does not intend to promote hatred, discriminate against any religion or community, or influence any election.</li>
-            <li>The game contains fictional cartoon-style fighting and exaggerated violence. Please do not imitate it in real life.</li>
-            <li>Any resemblance to real persons or events is used in a satirical context and should not be interpreted as a factual representation.</li>
-            <li>For complaints, concerns or removal requests, please contact: <a href="mailto:shivmbuilds@gmail.com">shivmbuilds@gmail.com</a></li>
-          </ul>
-          <p class="legal-agree">By continuing, you acknowledge that this is a work of political satire and parody.</p>
-          <hr />
-          <h3>व्यंग्य सूचना</h3>
-          <p>यह खेल मनोरंजन और सामाजिक टिप्पणी के उद्देश्य से बनाया गया एक राजनीतिक व्यंग्य और पैरोडी है। इसमें दिखाए गए संवाद, परिस्थितियां और घटनाएं काल्पनिक एवं अतिरंजित हैं।</p>
-          <p>सभी पात्रों के चित्रण और संवाद व्यंग्यात्मक हैं। इन्हें वास्तविक तथ्य या आरोप न समझें। यह खेल किसी राजनीतिक दल, नेता या सरकारी संस्था से संबद्ध नहीं है।</p>
-          <p>इस खेल का उद्देश्य किसी भी प्रकार की नफरत फैलाना, किसी धर्म या समुदाय के साथ भेदभाव करना या किसी चुनाव को प्रभावित करना नहीं है।</p>
-          <p>इसमें काल्पनिक कार्टून हिंसा और अतिरंजित लड़ाई दिखाई गई है। कृपया इसकी नकल वास्तविक जीवन में न करें।</p>
-          <p>वास्तविक व्यक्तियों या घटनाओं से कोई भी समानता व्यंग्य के संदर्भ में है और इसे वास्तविक तथ्यों के रूप में न समझें।</p>
-          <p>शिकायत, आपत्ति या सामग्री हटाने के अनुरोध के लिए हमसे संपर्क करें: <a href="mailto:shivmbuilds@gmail.com">shivmbuilds@gmail.com</a></p>
-          <p class="legal-agree">आगे बढ़ने का अर्थ है कि आप समझते हैं कि यह एक व्यंग्यात्मक खेल है।</p>
+    <!-- 2-Player Online Coming Soon Modal (Client-Side Vercel Build) -->
+    <div id="coming-soon-modal" class="samsad-cs-backdrop" hidden role="dialog" aria-modal="true" aria-labelledby="cs-title">
+      <div class="samsad-cs-card">
+        <div class="samsad-cs-badge">🌐 MULTIPLAYER UPDATE · COMING SOON</div>
+        <h2 id="cs-title">PLAY WITH A SATHI (2P ONLINE)</h2>
+        <p class="samsad-cs-nep">साथीसँग अनलाइन भिड्ने ६-अंकको रुम कोड र WebRTC मल्टिप्लेयर मोड चाँडै आउँदैछ!</p>
+        <p class="samsad-cs-desc">Real-time 2-Player P2P battles, 6-digit Maitighar room codes, and cross-Nepal tournament brackets are currently in active development. Enjoy 100% client-side <b>1v1 vs CPU &amp; Gen-Z Boss</b> mode right now!</p>
+        <div class="samsad-cs-features">
+          <span>⚡ 6-Digit Sathi Room Codes</span>
+          <span>🏆 Samsad Kursi Ranked Ladder</span>
+          <span>🎙️ Live Nepali Meme Taunts</span>
         </div>
-        <button id="legal-ok" type="button" class="ready">I UNDERSTAND · CONTINUE</button>
+        <div class="samsad-cs-actions">
+          <button id="cs-play-ai-btn" type="button" class="samsad-cs-primary">🔥 PLAY 1v1 VS AI NOW</button>
+          <button id="cs-close-btn" type="button" class="samsad-cs-secondary">CLOSE</button>
+        </div>
       </div>
     </div>
 
+    <!-- Opening notice: Nepali & English Satire Notice -->
+    <div id="legal" role="alertdialog" aria-modal="true" aria-labelledby="legal-title">
+      <div class="legal-card">
+        <h2 id="legal-title">NEPAL SATIRE NOTICE · राजनीतिक व्यंग्य सूचना 🇳🇵</h2>
+        <div class="legal-scroll" tabindex="0">
+          <p class="legal-hi">यो खेल पूर्णतः मनोरञ्जन, हास्य र सामाजिक-राजनीतिक व्यंग्य (Satire &amp; Parody) को उद्देश्यले निर्माण गरिएको काल्पनिक रचना हो। यसमा प्रस्तुत पात्र, उखान-टुक्का, संवाद र घटनाहरू अतिरञ्जित र काल्पनिक हुन्—यिनलाई वास्तविक तथ्य वा आरोपको रूपमा नलिनुहोला।</p>
+          <p><b>SAMSAD: THE GREAT KURSI &amp; GEN-Z FIGHT</b> is an independent political satire and parody game inspired by Nepali political memes, musical-chair coalitions, and youth internet culture, created as creative expression under Article 17(2)(a) of the Constitution of Nepal (Freedom of Opinion and Expression).</p>
+          <ul>
+            <li>All fictional dialogues, Ukhan-Tukkas, #NepoKids references, and headlines are satirical interpretations for comedy and meme culture.</li>
+            <li>This game is independently created and is not affiliated with, endorsed, or sponsored by any political party, municipality, leader, or media house in Nepal.</li>
+            <li>The game contains exaggerated cartoon-style arcade combat—please keep real-life debates peaceful at Maitighar and Baneswor!</li>
+          </ul>
+          <p class="legal-agree">By continuing, you acknowledge that SAMSAD is a work of Nepali political satire and parody.</p>
+          <hr />
+          <h3>व्यंग्य तथा पैरोडी सूचना</h3>
+          <p>नेपालको संविधानको धारा १७(२)(क) अन्तर्गत विचार र अभिव्यक्तिको स्वतन्त्रताको मर्म अनुरूप यो विशुद्ध हास्य-व्यंग्य खेल तयार पारिएको हो। यो कुनै राजनीतिक दल, नेता, महानगरपालिका वा सरकारी निकायसँग आबद्ध छैन।</p>
+          <p class="legal-agree">आगे बढ्नुको अर्थ तपाईं यो राजनीतिक व्यंग्य र मनोरञ्जनात्मक खेल हो भनी बुझ्नुहुन्छ।</p>
+        </div>
+        <button id="legal-ok" type="button" class="ready">बुझें · I UNDERSTAND · CONTINUE 🇳🇵</button>
+      </div>
+    </div>
   </body>
 </html>
