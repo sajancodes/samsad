@@ -6,12 +6,18 @@ import shutil
 import math
 
 def build_final_balen():
-    print("=== BUILDING FINAL BALEN FROM USER 3D MESH ===")
+    print("=== BUILDING FINAL BALEN WITH PROPER ARMATURE RIGGING ===")
     bpy.ops.wm.read_factory_settings(use_empty=True)
     
     # 1. Import base avatar with combat animations & skeleton
     bpy.ops.import_scene.gltf(filepath='public/models/rahul.glb')
-    arm = bpy.data.objects.get('Armature')
+    arm = bpy.data.objects.get('Rig')
+    if not arm:
+        for obj in bpy.data.objects:
+            if obj.type == 'ARMATURE':
+                arm = obj
+                break
+    print(f'Found Armature: {arm.name}')
     
     # 2. Import user 3D head model
     user_glb = r'C:/Users/ab429/.gemini/antigravity/brain/f3dd405d-d87b-4bab-aed2-1613e1574d1e/.user_uploaded/media_1794036478740_eb168a9c.glb'
@@ -56,7 +62,9 @@ def build_final_balen():
     user_head.location = (0.0, -0.02, 1.45)
     bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
     
-    # 6. Rig to Armature (Head and Neck vertex weights)
+    # 6. Rig to Armature with EXACT bone names: Head_08 and Neck2_07
+    vg_head8 = user_head.vertex_groups.new(name='Head_08')
+    vg_neck2 = user_head.vertex_groups.new(name='Neck2_07')
     vg_head = user_head.vertex_groups.new(name='Head')
     vg_neck = user_head.vertex_groups.new(name='Neck')
     
@@ -65,22 +73,32 @@ def build_final_balen():
     
     for i, z in enumerate(zs):
         if z > 1.56:
+            vg_head8.add([i], 1.0, 'REPLACE')
             vg_head.add([i], 1.0, 'REPLACE')
         elif z < 1.51:
+            vg_neck2.add([i], 1.0, 'REPLACE')
             vg_neck.add([i], 1.0, 'REPLACE')
         else:
             t = (z - 1.51) / 0.05
+            vg_head8.add([i], float(t), 'REPLACE')
             vg_head.add([i], float(t), 'REPLACE')
+            vg_neck2.add([i], float(1.0 - t), 'REPLACE')
             vg_neck.add([i], float(1.0 - t), 'REPLACE')
             
     arm_mod = user_head.modifiers.new(name='Armature', type='ARMATURE')
     arm_mod.object = arm
     user_head.parent = arm
+    print('Parented BalenHead to Rig with Head_08 & Neck2_07 weights!')
     
     # 7. Remove original Ready Player Me head and facial elements
     for name in ['Head', 'EyeCorneaL', 'EyeCorneaR', 'EyeL', 'EyeR', 'Eyelashes', 'TeethLower', 'TeethUpper']:
         obj = bpy.data.objects.get(name)
         if obj:
+            bpy.data.objects.remove(obj, do_unlink=True)
+            
+    # Remove any stray objects like Icosphere
+    for obj in list(bpy.data.objects):
+        if 'Icosphere' in obj.name:
             bpy.data.objects.remove(obj, do_unlink=True)
             
     # 8. Broaden OutfitTop collar & shoulders for authentic mayor physique
@@ -92,12 +110,10 @@ def build_final_balen():
         ys = coords[:, 1]
         zs = coords[:, 2]
         
-        # Broaden shoulders
         shoulder_w = np.clip((zs - 1.15) / 0.15, 0.0, 1.0) * np.clip((1.55 - zs) / 0.10, 0.0, 1.0)
         xs *= (1.0 + 0.12 * shoulder_w)
         ys *= (1.0 + 0.10 * shoulder_w)
         
-        # Raise collar vertices slightly to meet neck
         collar_mask = zs > 1.47
         zs[collar_mask] += 0.015
         
@@ -154,13 +170,6 @@ def build_final_balen():
     bpy.context.scene.render.filepath = os.path.abspath('balen_final_34.png')
     bpy.ops.render.render(write_still=True)
     print('Rendered balen_final_34.png')
-
-    # Render Full Body
-    cam.location = (0, -2.2, 1.1)
-    cam.rotation_euler = (math.radians(85), 0, 0)
-    bpy.context.scene.render.filepath = os.path.abspath('balen_final_fullbody.png')
-    bpy.ops.render.render(write_still=True)
-    print('Rendered balen_final_fullbody.png')
 
     # 11. Export GLBs with Draco compression
     out_desktop = os.path.abspath('public/models/balen.glb')

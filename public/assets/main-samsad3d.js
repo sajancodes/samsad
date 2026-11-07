@@ -1074,6 +1074,7 @@ function __samsadCustomizeRig(rig, photoTex) {
   if (!rig || !rig.model) return;
   try {
     const charId = rig.def?.id || 'modi';
+    if (charId === 'yogi') return;
     const pal = __samsadOutfitPalette[charId] || __samsadOutfitPalette.modi;
     __samsadActiveRigs.add(rig);
 
